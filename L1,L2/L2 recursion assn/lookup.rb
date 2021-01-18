@@ -23,7 +23,10 @@ dns_raw = File.readlines("zone")
 # FILL YOUR CODE HERE
 
 def parse_dns(dns_raw)
-  valid_records = dns_raw[1..]
+  valid_records = dns_raw[1..].select {
+    |record|
+    record != "\n" && record != ""
+  }
   mappings = {}
 
   valid_records = valid_records.each {
