@@ -1,28 +1,31 @@
 require "active_record"
 
 class Todo < ActiveRecord::Base
-  def due_today?
-    due_date == Date.today
-  end
+  # def due_today?
+  #   due_date == Date.today
+  # end
 
-  def overdue?
-    due_date < Date.today
-  end
+  # def overdue?
+  #   due_date < Date.today
+  # end
 
-  def upcoming?
-    due_date > Date.today
-  end
+  # def upcoming?
+  #   due_date > Date.today
+  # end
 
   def self.get_overdues
-    all.filter { |todo| todo.overdue? }
+    # all.filter { |todo| todo.overdue? }
+    all.where("due_date < ?", Date.today)
   end
 
   def self.get_today
-    all.filter { |todo| todo.due_today? }
+    # all.filter { |todo| todo.due_today? }
+    all.where("due_date = ?", Date.today)
   end
 
   def self.get_upcoming
-    all.filter { |todo| todo.upcoming? }
+    # all.filter { |todo| todo.upcoming? }
+    all.where("due_date > ?", Date.today)
   end
 
   def to_displayable_string
